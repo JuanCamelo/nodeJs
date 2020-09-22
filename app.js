@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.use(logger.middleware);
 
 app.get("/", (request, response) => {
-  response.json({ info: "StamSM service running..." });
+  response.json({ info: "Stam Suite Administration Module service is running..." });
 });
 
 /* Routes middleware */
