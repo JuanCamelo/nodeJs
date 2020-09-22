@@ -1,0 +1,7 @@
+node_modules
+*.log
+.env
+.vscode
+*-audit.json
+*.log.gz
+__test__
