@@ -3,13 +3,14 @@
  v 0.1
  POST /smchangeLog 
  */
-const smChangeLogDTO = require("../infrastucture/models/shChangeLog/smChangeLogDTO");
-const smChangeLogCommands = require("../infrastucture/commands/smChangeLog/smChangeLogCommandsModule");
-const transactionCommands = require("../infrastucture/commands/transactionCommandsModule");
 
-exports.createSMChangeLog = async (adUserID, action, tableName, recordID, columnName, oldValue, newValue ) => {
+const adChangeLogCommands = require("../infrastucture/commands/adChangeLog/adChangeLogCommandsModule");
+
+const adChangeLogDTO = require("../infrastucture/models/adChangeLog/adChangeLogDTO");
+
+exports.createADChangeLog = async (adUserID, action, tableName, recordID, columnName, oldValue, newValue ) => {
     try{
-        const record = smChangeLogDTO(
+        const record = adChangeLogDTO(
             adUserID,
             action,
             tableName,
@@ -18,9 +19,7 @@ exports.createSMChangeLog = async (adUserID, action, tableName, recordID, column
             oldValue,
             newValue
         );
-        await transactionCommands.beginTransaction();
-        await smChangeLogCommands.createSMChangeLog(record);
-        await transactionCommands.commitTransaction();
+        await adChangeLogCommands.createADChangeLog(record);
     } catch (error) {
         await transactionCommands.rollbackTransaction();
         throw new Error(error.message);
