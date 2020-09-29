@@ -1,4 +1,4 @@
-const smChangeLogDTO = (
+const adChangeLogDTO = (
     adUserID,
     action,
     tableName,
@@ -38,4 +38,4 @@ const smChangeLogDTO = (
         newValue: newValue,
     };
 };
-module.exports = smChangeLogDTO;
+module.exports = adChangeLogDTO;
