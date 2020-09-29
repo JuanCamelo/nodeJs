@@ -117,6 +117,12 @@ exports.updateADParameter  =  async (req,res,next) => {
     }
 };
 
+/**
+ * Delete ADParameter
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.deleteADParameter = async(req,res,next) => {
     try{
         const adParameterID = req.query.adparameterid;
@@ -140,5 +146,28 @@ exports.deleteADParameter = async(req,res,next) => {
     } catch (error){
         await dbTransaction.rollbackTransaction();
         response.error(req, res, "adParameter not created!", 400, error.message);
+    }
+}
+
+/**
+ * Get ADParameter
+ * @param {} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.getADParameter = async (req,res,next) => {
+    try{
+        const adparameterid = req.query.adparameterid != null ? req.query.adparameterid : "p.adparameterid";
+        const type = req.query.type != null ? "'" + req.query.type + "'" : "p.type";
+        const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
+        const value = req.query.value != null ? "'" + req.query.value + "'" : "p.value";
+        const list = req.query.list != null ? req.query.list : "p.list";
+
+        const adParameters = await adParameterQueries.getADParameter(adparameterid,type,name,value,list);
+        response.success(req, res, adParameters, 200, adParameters.length);
+
+    } catch (error){
+        await dbTransaction.rollbackTransaction();
+        response.error(req, res, "adParameter not exists!", 400, error.message);
     }
 }
