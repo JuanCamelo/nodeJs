@@ -8,7 +8,7 @@ const sqlQueries = {
     UPDATE_ADPARAMETER:
         "UPDATE " +
         "stam.adParameter " +
-        "SET (type=$1,name=$2,value=$3,list=$4,updated=$5,updatedby=$6) " +
+        "SET type=$1,name=$2,value=$3,list=$4,updated=$5,updatedby=$6 " +
         "WHERE adParameterID=$7",
     
     DELETE_ADPARAMETER:
