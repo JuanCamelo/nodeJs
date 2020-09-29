@@ -3,6 +3,6 @@ const adParameterController = require("../controllers/adParameterController");
 const router = express.Router();
 
 //POST /parameter - adParameter record
-router.post("/parameter", adParameterController.createADParameter);
+router.post("/adparameter", adParameterController.createADParameter);
 
 module.exports = router;
