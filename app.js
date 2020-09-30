@@ -5,6 +5,8 @@ const logger = require("./config/logsConfig");
 const db = require("./infrastucture/postgresDB");
 
 const adParameterRoutes = require("./routes/adParametersRoutes");
+const adMenuRoutes = require("./routes/adMenuRoutes");
+
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -36,6 +38,8 @@ app.get("/", (request, response) => {
 /* Routes middleware */
 
 app.use(adParameterRoutes);
+app.use(adMenuRoutes);
+
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry, can't find that!");
