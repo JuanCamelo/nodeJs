@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/admenu", adMenuController.createAdMenu);
 
 //PUT /adparameter - update adParameter record
-//router.put("/adparameter", adParameterController.updateADParameter);
+router.put("/admenu/:id", adMenuController.updateADMenu);
 
 //DELETE /adparameter - update adParameter record
 //router.delete("/adparameter", adParameterController.deleteADParameter);

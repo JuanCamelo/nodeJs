@@ -1,6 +1,6 @@
 module.exports = {
     //getADParameter: require("./getADParameter"),
-    //getADParameterByID: require("./getADParameterByID"),
-    getADMenuByTypeName: require("./getADMenuByName"),
+    getADMenuByID: require("./getADMenuByID"),
+    getADMenuByName: require("./getADMenuByName"),
     //getADParameterByTypeValue: require("./getADParameterByTypeValue"),
 };

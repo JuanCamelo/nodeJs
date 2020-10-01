@@ -5,11 +5,11 @@ const sqlQueries = {
         "VALUES($1,$2,$3,$4,$5)"+
         "RETURNING adMenu.admenuid",
     
-    /* UPDATE_ADPARAMETER:
+    UPDATE_ADMENU:
         "UPDATE " +
-        "stam.adParameter " +
-        "SET type=$1,name=$2,value=$3,list=$4,updated=$5,updatedby=$6 " +
-        "WHERE adParameterID=$7", */
+        "stam.adMenu" +
+        "SET name=$1,updated=$2,updatedby=$3 " +
+        "WHERE adParameterID=$4",
     
    /*  DELETE_ADPARAMETER:
         "DELETE " +

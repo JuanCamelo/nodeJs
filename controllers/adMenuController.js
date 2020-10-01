@@ -11,7 +11,7 @@ const adMenuCommands = require("../infrastucture/commands/adMenu/adMenuCommandsM
 const adMenuQueries = require("../infrastucture/queries/adMenu/adMenuQueriesModule");
 
 const adMenuDTO = require("../infrastucture/models/adMenu/adMenuDTO");
-const adParameterUpdateDTO = require("../infrastucture/models/adParameter/adParameterUpdateDTO");
+const adMenuUpdateDTO = require("../infrastucture/models/adParameter/adParameterUpdateDTO");
 
 
 /**
@@ -27,7 +27,7 @@ exports.createAdMenu = async (req,res,next) => {
         const name = req.body.name.toUpperCase();
 
         //Validate not exists a record with same name
-        const valTypeName = await adMenuQueries.getADMenuByTypeName(name);
+        const valTypeName = await adMenuQueries.getADMenuByName(name);
         if(valTypeName.length > 0 )
             throw new Error("Exists a record with the same name");
         
@@ -48,55 +48,40 @@ exports.createAdMenu = async (req,res,next) => {
 /**
  * Update adParameter
  */
-exports.updateADParameter  =  async (req,res,next) => {
+
+ exports.updateADMenu  =  async (req,res,next) => {
     try{
-        const adParameterID = req.query.adparameterid;
-        const adParameter = await adParameterQueries.getADParameterByID(adParameterID);
+        const adMenuID = req.query.admenuid;
+        const adMenu = await adMenuQueries.getADMenuByID(adMenuID);
 
         //Validate that record exists
-        if( adParameter.length == 0 )
-            throw new Error("adParameter record not exists");
+        if( adMenu.length == 0 )
+            throw new Error("adMenu record not exists");
         
         //Get values to update
-        const type = adParameter[0].type;
-        const name = req.body.name !== undefined ? req.body.name : adParameter[0].name;
-        const value = req.body.value !== undefined ? req.body.value : adParameter[0].value;
-        const list = adParameter[0].list;
+        const name = req.body.name !== undefined ? req.body.name : adMenu[0].name;
         const adUserID = req.body.updatedby;
 
-        const record = adParameterUpdateDTO(
-            type,
+        const record = adMenuUpdateDTO(
             name,
-            value,
-            list,
             adUserID,
         );
 
-        if( name != adParameter[0].name || value != adParameter[0].value ){
+        if( name != adMenu[0].name){
             await dbTransaction.beginTransaction();
             //Validate not exists a record with same type and name
-            
-            if( name != adParameter[0].name ){
-                const valTypeName = await adParameterQueries.getADParameterByTypeName(type.toUpperCase(),name.toUpperCase());
+                 const valTypeName = await adMenuQueries.getADMenuByName(name.toUpperCase());
                 if(valTypeName.length > 0 )
-                    throw new Error("Exists a parameter with the relation type-name");
+                    throw new Error("Exists a menu with the same name");
 
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adParameter",adParameterID,"name",adParameter[0].name,name);
-            }
-            if( value != adParameter[0].value ){
-                //Validate not exists a record with same type and value if list is true
-                if( list == true ){
-                    const valTypeValue = await adParameterQueries.getADParameterByTypeValue(type.toUpperCase(),value.toUpperCase());
-                    if(valTypeValue.length > 0 )
-                        throw new Error("Exists a parameter with the relation type-vale");
-                }
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adParameter",adParameterID,"value",adParameter[0].value,value);
-            }
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adMenu",adMenuID,"name",adMenu[0].name,name);
+            
+            
 
-            await adParameterCommands.updateADParameter(record,adParameterID);
+            await adMenuCommands.updateADMenu(record,adMenuID);
             await dbTransaction.commitTransaction();
         }
-
+  
         response.success(req, res, adParameterID, 201, "adParameter record updated successfully!");
 
     } catch(error) {

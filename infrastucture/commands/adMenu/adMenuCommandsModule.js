@@ -1,5 +1,5 @@
 module.exports = {
     createADMenu: require("./createADMenu"),
-    //updateADParameter: require("./updateADParameter"),
+    updateADMenu: require("./updateADMenu"),
     //deleteADParameter: require("./deleteADParameter"),
 }
