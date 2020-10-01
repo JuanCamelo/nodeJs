@@ -2,16 +2,16 @@ const express = require("express");
 const adMenuController = require("../controllers/adMenuController");
 const router = express.Router();
 
-//POST /adparameter - insert adParameter record
-router.post("/admenu", adMenuController.createAdMenu);
+//POST /adMenu - insert adMenur record
+router.post("/admenu", adMenuController.createADMenu);
 
-//PUT /adparameter - update adParameter record
-router.put("/admenu/:id", adMenuController.updateADMenu);
+//PUT /adMenu - update adMenu record
+router.put("/admenu", adMenuController.updateADMenu);
 
-//DELETE /adparameter - update adParameter record
-//router.delete("/adparameter", adParameterController.deleteADParameter);
+//DELETE /admenu - update admenu record
+router.delete("/admenu", adMenuController.deleteADMenu);
 
 //GET /adparameter - GET adParameter records
-//router.get("/adparameter", adParameterController.getADParameter);
+router.get("/admenu", adMenuController.getADMenu);
 
 module.exports = router;

@@ -9,17 +9,17 @@ const sqlQueries = {
         "UPDATE " +
         "stam.adMenu" +
         "SET name=$1,updated=$2,updatedby=$3 " +
-        "WHERE adParameterID=$4",
+        "WHERE adMenuID=$4",
     
-   /*  DELETE_ADPARAMETER:
+    DELETE_ADMENU:
         "DELETE " +
-        "FROM stam.adParameter " +
-        "where adParameterID=$1", */
+        "FROM stam.adMenu " +
+        "where adMenuID=$1", 
     
-    /* GET_ADPARAMETER_ID:
+    GET_ADMENU_ID:
         "SELECT p.* " +
-        "FROM stam.adParameter p " +
-        "WHERE p.adParameterID=$1", */
+        "FROM stam.adMenu p " +
+        "WHERE p.adMenuID=$1",
     
     GET_ADMENU_NAME:
         "SELECT p.* " +

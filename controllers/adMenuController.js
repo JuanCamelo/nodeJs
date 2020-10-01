@@ -11,13 +11,13 @@ const adMenuCommands = require("../infrastucture/commands/adMenu/adMenuCommandsM
 const adMenuQueries = require("../infrastucture/queries/adMenu/adMenuQueriesModule");
 
 const adMenuDTO = require("../infrastucture/models/adMenu/adMenuDTO");
-const adMenuUpdateDTO = require("../infrastucture/models/adParameter/adParameterUpdateDTO");
+const adMenuUpdateDTO = require("../infrastucture/models/adMenu/adMenuUpdateDTO");
 
 
 /**
  * Create adParameter
  */
-exports.createAdMenu = async (req,res,next) => {
+exports.createADMenu = async (req,res,next) => {
     try{
         const record = adMenuDTO(
             req.body.name,
@@ -86,7 +86,7 @@ exports.createAdMenu = async (req,res,next) => {
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adParameter not updated!", 400, error.message); 
+        response.error(req, res, "adMenu not updated!", 400, error.message); 
     }
 };
 
@@ -96,31 +96,31 @@ exports.createAdMenu = async (req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
-exports.deleteADParameter = async(req,res,next) => {
+ exports.deleteADMenu = async(req,res,next) => {
     try{
-        const adParameterID = req.query.adparameterid;
-        const adParameter = await adParameterQueries.getADParameterByID(adParameterID);
+        const adMenuID = req.query.admenuid;
+        const admenu = await adMenuQueries.getADMenuByID(adMenuID);
 
         //Validate that record exists
-        if( adParameter.length == 0 )
-            throw new Error("adParameter record not exists");
+        if( admenu.length == 0 )
+            throw new Error("adMenu record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )
             throw new Error("deletedBy is not valid");
         
         await dbTransaction.beginTransaction();
-        await adParameterCommands.deleteADParameter(adParameterID);
-        await changeLog.createADChangeLog(adUserID,"DELETE","adParameter",adParameterID,null,null,null);
+        await adMenuCommands.deleteADMenu(adMenuID);
+        await changeLog.createADChangeLog(adUserID,"DELETE","adMenu",adMenuID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adParameterID, 201, "adParameter record deleted successfully!");
+        response.success(req, res, adMenuID, 201, "adParameter record deleted successfully!");
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adParameter not created!", 400, error.message);
+        response.error(req, res, "adMenu not deleted!", 400, error.message);
     }
-}
+} 
 
 /**
  * Get ADParameter
@@ -128,16 +128,13 @@ exports.deleteADParameter = async(req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
-exports.getADParameter = async (req,res,next) => {
+exports.getADMenu = async (req,res,next) => {
     try{
-        const adparameterid = req.query.adparameterid != null ? req.query.adparameterid : "p.adparameterid";
-        const type = req.query.type != null ? "'" + req.query.type + "'" : "p.type";
+        const admenuid = req.query.admenuid != null ? req.query.admenuid : "p.admenuid";
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
-        const value = req.query.value != null ? "'" + req.query.value + "'" : "p.value";
-        const list = req.query.list != null ? req.query.list : "p.list";
 
-        const adParameters = await adParameterQueries.getADParameter(adparameterid,type,name,value,list);
-        response.success(req, res, adParameters, 200, adParameters.length);
+        const adMenu = await adMenuQueries.getADMenu(admenuid,name);
+        response.success(req, res, adMenu, 200, adMenu.length);
 
     } catch (error){
         await dbTransaction.rollbackTransaction();

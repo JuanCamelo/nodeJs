@@ -1,18 +1,12 @@
 const pool = require('../../postgresDB');
+const sqlQueries = require('../../sqlQueries/sqlQueriesADmenu');
 
-const getADMenuByID = async (admenuid) => {
-    try{
-        const sqlQuery = `
-            SELECT 
-            p.*
-            FROM stam.admenu p
-            WHERE p.admenuid=${admenuid}`
-
-        const result = await pool.DBConnection.query(sqlQuery);
-        return result.rows;    
-
-    }  catch (error) {
-        throw error;
-    }
+const getADMenuByID = async (adMenuID) => {
+  try {
+    const result = await pool.DBConnection.query(sqlQueries.GET_ADMENU_ID, [adMenuID]);
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
 };
 module.exports = getADMenuByID;
