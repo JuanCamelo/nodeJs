@@ -1,5 +1,5 @@
 /**
- * Controler used to mange adParameters 
+ * Controler used to manage adMenus 
  */
 
 const response = require("./responses/responses");
@@ -15,7 +15,7 @@ const adMenuUpdateDTO = require("../infrastucture/models/adMenu/adMenuUpdateDTO"
 
 
 /**
- * Create adParameter
+ * Create adMenu
  */
 exports.createADMenu = async (req,res,next) => {
     try{
@@ -46,7 +46,7 @@ exports.createADMenu = async (req,res,next) => {
 }
 
 /**
- * Update adParameter
+ * Update adMenu
  */
 
  exports.updateADMenu  =  async (req,res,next) => {
@@ -82,7 +82,7 @@ exports.createADMenu = async (req,res,next) => {
             await dbTransaction.commitTransaction();
         }
   
-        response.success(req, res, adParameterID, 201, "adParameter record updated successfully!");
+        response.success(req, res, adParameterID, 201, "adMenu record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
@@ -91,7 +91,7 @@ exports.createADMenu = async (req,res,next) => {
 };
 
 /**
- * Delete ADParameter
+ * Delete ADMenu
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 
@@ -114,7 +114,7 @@ exports.createADMenu = async (req,res,next) => {
         await changeLog.createADChangeLog(adUserID,"DELETE","adMenu",adMenuID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adMenuID, 201, "adParameter record deleted successfully!");
+        response.success(req, res, adMenuID, 201, "adMenu record deleted successfully!");
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
@@ -123,7 +123,7 @@ exports.createADMenu = async (req,res,next) => {
 } 
 
 /**
- * Get ADParameter
+ * Get ADMenu
  * @param {} req 
  * @param {*} res 
  * @param {*} next 
@@ -138,6 +138,6 @@ exports.getADMenu = async (req,res,next) => {
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adParameter not exists!", 400, error.message);
+        response.error(req, res, "adMenu not exists!", 400, error.message);
     }
 }

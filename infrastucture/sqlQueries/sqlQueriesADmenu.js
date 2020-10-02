@@ -25,10 +25,6 @@ const sqlQueries = {
         "SELECT p.* " +
         "FROM stam.adMenu p " +
         "WHERE UPPER(p.name)=$1",
-
-    /* GET_ADPARAMETER_TYPE_VALUE:
-        "SELECT p.* " +
-        "FROM stam.adParameter p " +
-        "WHERE UPPER(p.type)=$1 AND UPPER(p.value)=$2", */
+   
 }
 module.exports = sqlQueries;
