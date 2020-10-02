@@ -27,8 +27,8 @@ exports.createADMenu = async (req,res,next) => {
         const name = req.body.name.toUpperCase();
 
         //Validate not exists a record with same name
-        const valTypeName = await adMenuQueries.getADMenuByName(name);
-        if(valTypeName.length > 0 )
+        const valName = await adMenuQueries.getADMenuByName(name);
+        if(valName.length > 0 )
             throw new Error("Exists a record with the same name");
         
         await dbTransaction.beginTransaction();
@@ -70,8 +70,8 @@ exports.createADMenu = async (req,res,next) => {
         if( name != adMenu[0].name){
             await dbTransaction.beginTransaction();
             //Validate not exists a record with same type and name
-                 const valTypeName = await adMenuQueries.getADMenuByName(name.toUpperCase());
-                if(valTypeName.length > 0 )
+                 const valName = await adMenuQueries.getADMenuByName(name.toUpperCase());
+                if(valName.length > 0 )
                     throw new Error("Exists a menu with the same name");
 
                 await changeLog.createADChangeLog(adUserID,"UPDATE","adMenu",adMenuID,"name",adMenu[0].name,name);
