@@ -6,6 +6,8 @@ const db = require("./infrastucture/postgresDB");
 
 const adParameterRoutes = require("./routes/adParametersRoutes");
 const adMenuRoutes = require("./routes/adMenuRoutes");
+const adMenuRoutes = require("./routes/adMenuOptionRoutes");
+
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -38,6 +40,7 @@ app.get("/", (request, response) => {
 /* Routes middleware */
 
 app.use(adParameterRoutes);
+app.use(adMenuRoutes);
 app.use(adMenuRoutes);
 
 

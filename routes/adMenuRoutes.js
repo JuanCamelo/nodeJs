@@ -11,7 +11,7 @@ router.put("/admenu", adMenuController.updateADMenu);
 //DELETE /admenu - update admenu record
 router.delete("/admenu", adMenuController.deleteADMenu);
 
-//GET /adparameter - GET adParameter records
+//GET /admenu - GET adMenu records
 router.get("/admenu", adMenuController.getADMenu);
 
 module.exports = router;
