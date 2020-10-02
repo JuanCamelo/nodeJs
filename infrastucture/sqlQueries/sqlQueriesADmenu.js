@@ -7,7 +7,7 @@ const sqlQueries = {
     
     UPDATE_ADMENU:
         "UPDATE " +
-        "stam.adMenu" +
+        "stam.adMenu " +
         "SET name=$1,updated=$2,updatedby=$3 " +
         "WHERE adMenuID=$4",
     

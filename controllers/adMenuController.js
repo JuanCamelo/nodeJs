@@ -82,7 +82,7 @@ exports.createADMenu = async (req,res,next) => {
             await dbTransaction.commitTransaction();
         }
   
-        response.success(req, res, adParameterID, 201, "adMenu record updated successfully!");
+        response.success(req, res, adMenuID, 201, "adMenu record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
