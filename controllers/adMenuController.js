@@ -100,10 +100,15 @@ exports.createADMenu = async (req,res,next) => {
     try{
         const adMenuID = req.query.admenuid;
         const admenu = await adMenuQueries.getADMenuByID(adMenuID);
+        const adMenuOption =  await adMenuQueries.getADMenuOptionByAdMenuID(adMenuID);
 
         //Validate that record exists
         if( admenu.length == 0 )
             throw new Error("adMenu record not exists");
+        
+        //Validate child tables   
+        if( adMenuOption.length > 0 )
+            throw new Error("the record can not be deleted because it has dependencies on a child table");    
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )

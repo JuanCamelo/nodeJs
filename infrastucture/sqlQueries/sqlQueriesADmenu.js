@@ -21,6 +21,11 @@ const sqlQueries = {
         "FROM stam.adMenu p " +
         "WHERE p.adMenuID=$1",
     
+    GET_ADMENUOPTION_ADMENUID:
+        "SELECT p.* " +
+        "FROM stam.admenuoption p " +
+        "WHERE p.adMenuID=$1",    
+    
     GET_ADMENU_NAME:
         "SELECT p.* " +
         "FROM stam.adMenu p " +
