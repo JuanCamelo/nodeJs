@@ -6,10 +6,12 @@ const router = express.Router();
 router.post("/admenuoption", adMenuOptionController.createADMenuOption);
 
 //PUT /admenuOptions - update adMenuOption record
-//router.put("/admenuOption", adMenuOptionController.updateADMenuOption);
+router.put("/admenuoption", adMenuOptionController.updateADMenuOption);
 
 //DELETE /admenuOptions - update admenuOption record
-//router.delete("/admenuOption", adMenuOptionController.deleteADMenuOption);
+router.delete("/admenuoption", adMenuOptionController.deleteADMenuOption);
 
+//GET /admenuoption - GET adMenuOption records
+router.get("/admenuoption", adMenuOptionController.getADMenuOption);
 
 module.exports = router;

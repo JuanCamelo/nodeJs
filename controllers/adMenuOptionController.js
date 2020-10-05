@@ -12,7 +12,7 @@ const adMenuQueries = require("../infrastucture/queries/adMenu/adMenuQueriesModu
 const adMenuOptionQueries = require("../infrastucture/queries/adMenuOptions/adMenuOptionsQueriesModule");
 
 const AdMenuOptionDTO = require("../infrastucture/models/adMenuOption/adMenuOptionDTO");
-//const adMenuOptionUpdateDTO = require("../infrastucture/models/adMenuOption/adMenuOptionUpdateDTO");
+const adMenuOptionUpdateDTO = require("../infrastucture/models/adMenuOption/adMenuOptionUpdateDTO");
 
 
 /**
@@ -26,7 +26,7 @@ exports.createADMenuOption = async (req,res,next) => {
             req.body.createdby
         );
 
-        const name = req.body.name.toUpperCase();
+        const name = req.body.name.toLowerCase();
         const adMenuID=req.body.admenuid
 
         //validate exists a record with the menuid received
@@ -36,7 +36,7 @@ exports.createADMenuOption = async (req,res,next) => {
         
         //Validate not exists a record with same name and adMenuid
         const validIDName = await adMenuOptionQueries.getADMenuOptionByIDName(adMenuID,name);
-        if(validIDName.length >= 0 )
+        if(validIDName.length >= 1 )
             throw new Error("Exists a record with the same name and adMenuID");
         
         await dbTransaction.beginTransaction();
@@ -57,46 +57,44 @@ exports.createADMenuOption = async (req,res,next) => {
  * Update adMenuOption
  */
 
-/*  exports.updateADMenu  =  async (req,res,next) => {
+ exports.updateADMenuOption  =  async (req,res,next) => {
     try{
-        const adMenuID = req.query.admenuid;
-        const adMenu = await adMenuQueries.getADMenuByID(adMenuID);
+        const adMenuOptionID = req.query.admenuoptionid;
+        const adMenuOption = await adMenuOptionQueries.getADMenuOptionByID(adMenuOptionID);
 
         //Validate that record exists
-        if( adMenu.length == 0 )
+        if( adMenuOption.length == 0 )
             throw new Error("adMenu record not exists");
-        
-        //Get values to update
-        const name = req.body.name !== undefined ? req.body.name : adMenu[0].name;
+
+            //Get values to update
+        const name = req.body.name !== undefined ? req.body.name.toLowerCase() : adMenuOption[0].name;
         const adUserID = req.body.updatedby;
 
-        const record = adMenuUpdateDTO(
+
+        const record = adMenuOptionUpdateDTO(
             name,
             adUserID,
         );
 
-        if( name != adMenu[0].name){
+        if( name != adMenuOption[0].name){
             await dbTransaction.beginTransaction();
-            //Validate not exists a record with same type and name
-                 const valName = await adMenuQueries.getADMenuByName(name.toUpperCase());
-                if(valName.length > 0 )
-                    throw new Error("Exists a menu with the same name");
+        //Validate not exists a record with same name and adMenuid
+            const validIDName = await adMenuOptionQueries.getADMenuOptionByIDName(adMenuOption[0].admenuid,name);
+            if(validIDName.length >= 1 )
+            throw new Error("Exists a record with the same name and adMenuID");
 
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adMenu",adMenuID,"name",adMenu[0].name,name);
-            
-            
-
-            await adMenuCommands.updateADMenu(record,adMenuID);
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adMenuOption",adMenuOptionID,"name",adMenuOption[0].name,name);
+            await adMenuOptionCommands.updateADMenuOption(record,adMenuOptionID);
             await dbTransaction.commitTransaction();
         }
   
-        response.success(req, res, adParameterID, 201, "adMenu record updated successfully!");
+        response.success(req, res, adMenuOptionID, 201, "adMenu record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
         response.error(req, res, "adMenu not updated!", 400, error.message); 
     }
-}; */
+};  
 
 /**
  * Delete ADMenuOption
@@ -104,13 +102,13 @@ exports.createADMenuOption = async (req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
-/*  exports.deleteADMenu = async(req,res,next) => {
+ exports.deleteADMenuOption = async(req,res,next) => {
     try{
-        const adMenuID = req.query.admenuid;
-        const admenu = await adMenuQueries.getADMenuByID(adMenuID);
+        const adMenuOptionID = req.query.admenuoptionid;
+        const adMenuOption = await adMenuOptionQueries.getADMenuOptionByID(adMenuOptionID);
 
         //Validate that record exists
-        if( admenu.length == 0 )
+        if( adMenuOption.length == 0 )
             throw new Error("adMenu record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
@@ -118,17 +116,17 @@ exports.createADMenuOption = async (req,res,next) => {
             throw new Error("deletedBy is not valid");
         
         await dbTransaction.beginTransaction();
-        await adMenuCommands.deleteADMenu(adMenuID);
-        await changeLog.createADChangeLog(adUserID,"DELETE","adMenu",adMenuID,null,null,null);
+        await adMenuOptionCommands.deleteADMenuOption(adMenuOptionID);
+        await changeLog.createADChangeLog(adUserID,"DELETE","adMenuOption",adMenuOptionID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adMenuID, 201, "adMenu record deleted successfully!");
+        response.success(req, res, adMenuOptionID, 201, "adMenu record deleted successfully!");
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
         response.error(req, res, "adMenu not deleted!", 400, error.message);
     }
-}  */
+} 
 
 /**
  * Get ADMenu
@@ -136,16 +134,17 @@ exports.createADMenuOption = async (req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
-/* exports.getADMenu = async (req,res,next) => {
+exports.getADMenuOption = async (req,res,next) => {
     try{
-        const admenuid = req.query.admenuid != null ? req.query.admenuid : "p.admenuid";
+        const adMenuOptionID = req.query.admenuoptionid != null ? req.query.admenuoptionid : "p.admenuoptionid";
+        const adMenuID = req.query.admenuid != null ? req.query.admenuid : "p.admenuid";
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
 
-        const adMenu = await adMenuQueries.getADMenu(admenuid,name);
-        response.success(req, res, adMenu, 200, adMenu.length);
+        const adMenuOption = await adMenuOptionQueries.getADMenuOption(adMenuOptionID,adMenuID,name);
+        response.success(req, res, adMenuOption, 200, adMenuOption.length);
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
         response.error(req, res, "adMenu not exists!", 400, error.message);
     }
-} */
+} 

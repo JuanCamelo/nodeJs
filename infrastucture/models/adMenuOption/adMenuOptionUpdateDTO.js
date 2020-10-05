@@ -11,9 +11,9 @@ const adMenuOptionUpdateDTO = (
       throw new Error('updatedby is not valid'); 
 
     return {
-        name: name,
+        name: name.toLowerCase(),
         updated: new Date(),
         updatedby: updatedby,
     };
 };
-module.exports = adMenuUpdateDTO;
+module.exports = adMenuOptionUpdateDTO;

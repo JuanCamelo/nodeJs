@@ -14,7 +14,7 @@ const AdMenuOptionDTO = (
     return {
         
         admenuid:admenuid,
-        name: name,
+        name: name.toLowerCase(),
         created: new Date(),
         createdby: createdby,
         updated: null,

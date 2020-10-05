@@ -1,9 +1,9 @@
 const pool = require('../../postgresDB');
-const sqlQueries = require('../../sqlQueries/sqlQueriesADmenu');
+const sqlQueries = require('../../sqlQueries/sqlQueriesADmenuOption');
 
-const updateADMenu = async (params, id) => {
+const updateADMenuOption = async (params, id) => {
   try {
-    const result = await pool.DBConnection.query(sqlQueries.UPDATE_ADMENU, [
+    const result = await pool.DBConnection.query(sqlQueries.UPDATE_ADMENUOPTION, [
         ...Object.values(params),id,
     ]);
     return result.rows;
@@ -11,4 +11,4 @@ const updateADMenu = async (params, id) => {
     throw error;
   }
 };
-module.exports = updateADMenu;
+module.exports = updateADMenuOption;
