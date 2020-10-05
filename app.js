@@ -6,7 +6,7 @@ const db = require("./infrastucture/postgresDB");
 
 const adParameterRoutes = require("./routes/adParametersRoutes");
 const adMenuRoutes = require("./routes/adMenuRoutes");
-const adMenuRoutes = require("./routes/adMenuOptionRoutes");
+const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 
 
 
@@ -41,7 +41,7 @@ app.get("/", (request, response) => {
 
 app.use(adParameterRoutes);
 app.use(adMenuRoutes);
-app.use(adMenuRoutes);
+app.use(adMenuOptionRoutes);
 
 
 app.use(function (req, res, next) {

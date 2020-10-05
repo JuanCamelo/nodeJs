@@ -12,12 +12,13 @@ const AdMenuOptionDTO = (
       throw new Error('createdby is not valid'); 
 
     return {
-        name: name,
+        
         admenuid:admenuid,
+        name: name,
         created: new Date(),
         createdby: createdby,
         updated: null,
         updatedby: null,
     };
 };
-module.exports = AdMenuDTO;
+module.exports = AdMenuOptionDTO;

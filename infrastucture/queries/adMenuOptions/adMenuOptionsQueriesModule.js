@@ -1,5 +1,6 @@
 module.exports = {
-    getADMenu: require("./getADMenu"),
-    getADMenuByID: require("./getADMenuByID"),
-    getADMenuByName: require("./getADMenuByName"),
+    getADMenuOptionByIDName: require("./getADMenuOptionByIDName"),
+    //getADMenu: require("./getADMenu"),
+    //getADMenuByID: require("./getADMenuByID"),
+    //getADMenuByName: require("./getADMenuByName"),
 };
