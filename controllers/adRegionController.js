@@ -29,18 +29,15 @@ exports.createADRegion = async (req, res, next) => {
         const adCountyID = req.body.adcountryid
         const adUserID = req.body.createdby;
 
-
         //validate exists a record with the adcountryid received
         const valCountryId = await adRegionQueries.getADRegionCountyID(adCountyID);
         if (valCountryId.length == 0)
             throw new Error("adcountryid record not exist");
 
-
         //Validate not exists a record with same name and adcountryid
         const validIDName = await adRegionQueries.getADRegionNameCountryID(adCountyID, name);
         if (validIDName.length >= 1)
             throw new Error("Exists a record with the same name and adcountryid");
-
 
         await dbTransaction.beginTransaction();
         const ADRegion = await adRegionCommands.createADRegion(record);
@@ -82,23 +79,19 @@ exports.updateADRegion = async (req, res, next) => {
         if (name != ADRegion[0].name || adcountryid != ADRegion[0].adcountryid) {
             await dbTransaction.beginTransaction();
 
-
             //Validate not exists a record with same type and name
             if (name != ADRegion[0].name) {
                 const validIDName = await adRegionQueries.getADRegionNameCountryID(adcountryid, name);
                 if (validIDName.length >= 1)
                     throw new Error("Exists a record with the same name and countryid");
-
                 await changeLog.createADChangeLog(adUserID, "UPDATE", "ADRegion", AdRegionID, "name", ADRegion[0].name, name);
             };
-
 
             //validate exists a record with the adcountryid received
             if (adcountryid != ADRegion[0].adcountryid) {
                 const valCountryId = await adRegionQueries.getADRegionCountyID(adcountryid);
                 if (valCountryId.length == 0)
                     throw new Error("adcountryid record not exist");
-
                 await changeLog.createADChangeLog(adUserID, "UPDATE", "ADRegion", AdRegionID, "name", ADRegion[0].adcountryid, adcountryid);
             };
 
