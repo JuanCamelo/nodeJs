@@ -147,12 +147,12 @@ exports.updateADCountry = async (req, res, next) => {
  */
 exports.deleteADCountry = async (req, res, next) => {
     try {
-        const adCountryID = req.query.adparameterid;
+        const adCountryID = req.query.adcountryid;
         const adCountry = await adCountryQueries.getADContryByID(adCountryID);
 
         //Validate that record exists
         if (adCountry.length == 0)
-            throw new Error("adCountry record not exists");
+            throw new Error("countryid record not exists");
 
         const adUserID = parseInt(req.query.deletedby);
         if (Number.isNaN(adUserID))

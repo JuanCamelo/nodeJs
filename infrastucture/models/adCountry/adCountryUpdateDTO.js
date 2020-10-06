@@ -15,7 +15,7 @@ const adCountryUpdateDTO = (
         throw new Error('currency is not valid');
 
     if (taxidtype !== true && taxidtype !== false)
-        throw new Error('list is not valid');
+        throw new Error('taxidtype is not valid');
 
 
     const user = parseInt(updatedby);
