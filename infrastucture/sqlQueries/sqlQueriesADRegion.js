@@ -21,12 +21,12 @@ const sqlQueries = {
         "SELECT p. * " +
         "FROM stam.adregion p " +
         "WHERE p.adregionid =$1",
-    
-     
+
+
     GET_ADREGION_COUNTYIDNAME:
         "SELECT p.* " +
         "FROM stam.adregion p " +
-        "WHERE p.adcountryid=$1 and UPPER(p.name)=$2" , 
+        "WHERE p.adcountryid=$1 and UPPER(p.name)=$2",
 
 
 }

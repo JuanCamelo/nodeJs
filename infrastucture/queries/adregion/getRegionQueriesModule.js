@@ -1,5 +1,5 @@
-module.exports={
-    getADRegionCountyID:require("./getADRegionCountryID"),
+module.exports = {
+    getADRegionCountyID: require("./getADRegionCountryID"),
     getADRegionNameCountryID: require("./getADRegionNameCoutryID"),
     getADRegionID: require("./getADRegionByID")
 };
