@@ -6,16 +6,21 @@ const sqlQueries = {
         "RETURNING adregionid",
 
     UPDATE_ADREGION:
-        "",
+        "UPDATE " +
+        "stam.adregion " +
+        "SET adcountryid=$1, name=$2, updated=$3,updatedby=$4 " +
+        "WHERE adregionid=$5",
 
-    DELETE_ADDELETE:
-        "",
+    DELETE_ADREGION:
+        "DELETE " +
+        "FROM stam.adregion " +
+        "where adregionid=$1",
 
 
     GET_ADREGION_ID:
         "SELECT p. * " +
         "FROM stam.adregion p " +
-        "WHERE stam.adregion =$1",
+        "WHERE p.adregionid =$1",
     
      
     GET_ADREGION_COUNTYIDNAME:
