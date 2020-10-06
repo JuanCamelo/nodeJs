@@ -8,6 +8,8 @@ const adParameterRoutes = require("./routes/adParametersRoutes");
 const adMenuRoutes = require("./routes/adMenuRoutes");
 const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 const adCoutryRoutes = require("./routes/adCountryRoutes");
+const adRegionRoutes = require("./routes/adRegionRoutes");
+
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -41,7 +43,7 @@ app.get("/", (request, response) => {
 app.use(adParameterRoutes);
 app.use(adMenuRoutes);
 app.use(adMenuOptionRoutes);
-
+app.use(adRegionRoutes);
 app.use(adCoutryRoutes);
 
 app.use(function (req, res, next) {
