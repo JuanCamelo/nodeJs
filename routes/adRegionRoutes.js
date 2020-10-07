@@ -11,5 +11,8 @@ router.put("/adregion", adRegionController.updateADRegion);
 //DELETE /adregion - update adregion record
 router.delete("/adregion", adRegionController.deleteADRegion);
 
+//GET /adregion - GET adRegion records
+router.get("/adregion", adRegionController.getADRegion);
+
 
 module.exports = router;
