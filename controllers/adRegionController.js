@@ -10,7 +10,7 @@ const adRegionCommands = require("../infrastucture/commands/adRegion/adRegionCom
 
 const adRegionQueries = require("../infrastucture/queries/adregion/getRegionQueriesModule");
 
-const adRegionDTO = require("../infrastucture/models/ADRegion/adRegionDTO");
+const adRegionDTO = require("../infrastucture/models/adRegion/adRegionDTO");
 const adRegionUpdateDTO = require("../infrastucture/models/adRegion/adRegionUpdateDTO");
 
 
@@ -45,11 +45,11 @@ exports.createADRegion = async (req, res, next) => {
         await changeLog.createADChangeLog(adUserID, "INSERT", "AdRegion", AdRegionID, null, null, null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, AdRegionID, 201, "AdRegion record created successfully!");
+        response.success(req, res, AdRegionID, 201, "adRegion record created successfully!");
 
     } catch (error) {
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "AdRegion not created!", 400, error.message);
+        response.error(req, res, "adRegion not created!", 400, error.message);
     }
 }
 
@@ -84,7 +84,7 @@ exports.updateADRegion = async (req, res, next) => {
                 const validIDName = await adRegionQueries.getADRegionNameCountryID(adcountryid, name);
                 if (validIDName.length >= 1)
                     throw new Error("Exists a record with the same name and countryid");
-                await changeLog.createADChangeLog(adUserID, "UPDATE", "ADRegion", AdRegionID, "name", ADRegion[0].name, name);
+                await changeLog.createADChangeLog(adUserID, "UPDATE", "adRegion", AdRegionID, "name", ADRegion[0].name, name);
             };
 
             //validate exists a record with the adcountryid received
@@ -92,7 +92,7 @@ exports.updateADRegion = async (req, res, next) => {
                 const valCountryId = await adRegionQueries.getADRegionCountyID(adcountryid);
                 if (valCountryId.length == 0)
                     throw new Error("adcountryid record not exist");
-                await changeLog.createADChangeLog(adUserID, "UPDATE", "ADRegion", AdRegionID, "name", ADRegion[0].adcountryid, adcountryid);
+                await changeLog.createADChangeLog(adUserID, "UPDATE", "adRegion", AdRegionID, "name", ADRegion[0].adcountryid, adcountryid);
             };
 
             await adRegionCommands.updateADRegion(record, AdRegionID);
@@ -128,7 +128,7 @@ exports.deleteADRegion = async (req, res, next) => {
 
         await dbTransaction.beginTransaction();
         await adRegionCommands.deleteADRegion(ADRegionID);
-        await changeLog.createADChangeLog(adUserID, "DELETE", "ADRegion", ADRegionID, null, null, null);
+        await changeLog.createADChangeLog(adUserID, "DELETE", "adRegion", ADRegionID, null, null, null);
         await dbTransaction.commitTransaction();
 
         response.success(req, res, ADRegionID, 201, "Region record deleted successfully!");
