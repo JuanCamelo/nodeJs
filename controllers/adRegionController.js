@@ -157,6 +157,6 @@ exports.getADRegion = async (req, res, next) => {
 
     } catch (error) {
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adCountrys not exists!", 400, error.message);
+        response.error(req, res, "adRegion not exists!", 400, error.message);
     }
 }
