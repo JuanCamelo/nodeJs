@@ -8,6 +8,8 @@ const adParameterRoutes = require("./routes/adParametersRoutes");
 const adMenuRoutes = require("./routes/adMenuRoutes");
 const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 const adCoutryRoutes = require("./routes/adCountryRoutes");
+const adTaxIDTypeRoutes = require("./routes/adTaxIDTypeRoutes");
+
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -41,8 +43,8 @@ app.get("/", (request, response) => {
 app.use(adParameterRoutes);
 app.use(adMenuRoutes);
 app.use(adMenuOptionRoutes);
-
 app.use(adCoutryRoutes);
+app.use(adTaxIDTypeRoutes);
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry, can't find that!");
