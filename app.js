@@ -9,6 +9,7 @@ const adMenuRoutes = require("./routes/adMenuRoutes");
 const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 const adCoutryRoutes = require("./routes/adCountryRoutes");
 const adTaxIDTypeRoutes = require("./routes/adTaxIDTypeRoutes");
+const adRegionRoutes = require("./routes/adRegionRoutes");
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -43,6 +44,7 @@ app.get("/", (request, response) => {
 app.use(adParameterRoutes);
 app.use(adMenuRoutes);
 app.use(adMenuOptionRoutes);
+app.use(adRegionRoutes);
 app.use(adCoutryRoutes);
 app.use(adTaxIDTypeRoutes);
 
