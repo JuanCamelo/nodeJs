@@ -139,3 +139,24 @@ exports.deleteADRegion = async (req, res, next) => {
     };
 };
 
+/**
+ * Get adRegion
+ * @param {} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.getADRegion = async (req, res, next) => {
+    try {
+        const adregionid = req.query.adregionid != null ? req.query.adregionid : "p.adregionid";
+        const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
+        const adcountryid = req.query.adcountryid != null ? "'" + req.query.adcountryid + "'" : "p.adcountryid"
+        
+
+        const adRegions = await adRegionQueries.getADRegion(adregionid, name,adcountryid );
+        response.success(req, res, adRegions, 200, adRegions.length);
+
+    } catch (error) {
+        await dbTransaction.rollbackTransaction();
+        response.error(req, res, "adRegion not exists!", 400, error.message);
+    }
+}
