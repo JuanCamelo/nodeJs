@@ -85,15 +85,15 @@ exports.createADTaxIDType = async (req,res,next) => {
             adUserID,
         );
 
-        if( name != adTaxIDType[0].name){
+        if( name != adTaxIDType[0].name || code!=adTaxIDType[0].code){
             await dbTransaction.beginTransaction();
         //Validate not exists a record with same name and adCountryID
-            const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adTaxIDType[0].adcountryid,name);
+            const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adTaxIDType[0].adcountryid,name,adTaxIDType[0].adtaxidtype);
             if(validIDName.length >= 1 )
             throw new Error("Exists a record with the same name and adCountryID");
          
         //Validate not exists a record with same code and adCountryid
-        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCode(adTaxIDType[0].adcountryid,code);
+        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCode(adTaxIDType[0].adcountryid,code,adTaxIDType[0].adtaxidtype);
         if(validIDCode.length >= 1 )
         throw new Error("Exists a record with the same code and adCountryID");
 

@@ -24,11 +24,11 @@ const sqlQueries = {
      GET_ADTAXIDTYPE_ID_NAME:
         "SELECT p.* " +
         "FROM stam.adTaxIDType p " +
-        "WHERE p.adcountryid=$1 and p.name=$2" , 
+        "WHERE p.adcountryid=$1 and p.name=$2 and p.adtaxidtype<>$3" , 
 
     GET_ADTAXIDTYPE_ID_CODE:
         "SELECT p.* " +
         "FROM stam.adTaxIDType p " +
-        "WHERE p.adcountryid=$1 and p.code=$2" ,
+        "WHERE p.adcountryid=$1 and p.code=$2 and p.adtaxidtype<>$3" ,
 }
 module.exports = sqlQueries;
