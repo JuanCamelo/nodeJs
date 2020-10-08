@@ -64,7 +64,7 @@ exports.createADMenuOption = async (req,res,next) => {
 
         //Validate that record exists
         if( adMenuOption.length == 0 )
-            throw new Error("adMenu record not exists");
+            throw new Error("adMenuOption record not exists");
 
             //Get values to update
         const name = req.body.name !== undefined ? req.body.name.toLowerCase() : adMenuOption[0].name;
@@ -88,11 +88,11 @@ exports.createADMenuOption = async (req,res,next) => {
             await dbTransaction.commitTransaction();
         }
   
-        response.success(req, res, adMenuOptionID, 201, "adMenu record updated successfully!");
+        response.success(req, res, adMenuOptionID, 201, "adMenuOption record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adMenu not updated!", 400, error.message); 
+        response.error(req, res, "adMenuOption not updated!", 400, error.message); 
     }
 };  
 
@@ -109,7 +109,7 @@ exports.createADMenuOption = async (req,res,next) => {
 
         //Validate that record exists
         if( adMenuOption.length == 0 )
-            throw new Error("adMenu record not exists");
+            throw new Error("adMenuOption record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )
@@ -120,16 +120,16 @@ exports.createADMenuOption = async (req,res,next) => {
         await changeLog.createADChangeLog(adUserID,"DELETE","adMenuOption",adMenuOptionID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adMenuOptionID, 201, "adMenu record deleted successfully!");
+        response.success(req, res, adMenuOptionID, 201, "adMenuOption record deleted successfully!");
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adMenu not deleted!", 400, error.message);
+        response.error(req, res, "adMenuOption not deleted!", 400, error.message);
     }
 } 
 
 /**
- * Get ADMenu
+ * Get ADMenuOption
  * @param {} req 
  * @param {*} res 
  * @param {*} next 
@@ -145,6 +145,6 @@ exports.getADMenuOption = async (req,res,next) => {
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adMenu not exists!", 400, error.message);
+        response.error(req, res, "adMenuOption not exists!", 400, error.message);
     }
 } 
