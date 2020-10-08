@@ -81,7 +81,7 @@ exports.updateADRegion = async (req, res, next) => {
 
             //Validate not exists a record with same type and name
             if (name != ADRegion[0].name) {
-                const validIDName = await adRegionQueries.getADRegionNameCountryID(adcountryid, name);
+                const validIDName = await adRegionQueries.getADRegionNameCountryID(adcountryid, name.toUpperCase());
                 if (validIDName.length >= 1)
                     throw new Error("Exists a record with the same name and countryid");
                 await changeLog.createADChangeLog(adUserID, "UPDATE", "adRegion", AdRegionID, "name", ADRegion[0].name, name);

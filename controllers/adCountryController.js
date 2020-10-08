@@ -45,7 +45,7 @@ exports.createADCountry = async (req, res, next) => {
 
 
         //Validate what exists a type equal currency
-        const valTypeCurrency = await ParameterQueries.getADParameterByTypeValue('CURRENCY', currency);
+        const valTypeCurrency = await ParameterQueries.getADParameterByTypeValue('CURRENCIES', currency);
         if (valTypeCurrency.length == 0)
             throw new Error("currency not exists");
 
@@ -116,7 +116,7 @@ exports.updateADCountry = async (req, res, next) => {
 
             //Validate what exists a type equal currency
             if (currency != adCountry[0].currency) {
-                const valTypeCurrency = await ParameterQueries.getADParameterByTypeValue('CURRENCY', currency.toUpperCase());
+                const valTypeCurrency = await ParameterQueries.getADParameterByTypeValue('CURRENCIES', currency.toUpperCase());
                 if (valTypeCurrency.length == 0)
                     throw new Error("Currency not exists");
                 await changeLog.createADChangeLog(adUserID, "UPDATE", "adCountry", adCountryID, "currency", adCountry[0].currency, currency);
