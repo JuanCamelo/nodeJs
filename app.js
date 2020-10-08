@@ -8,6 +8,7 @@ const adParameterRoutes = require("./routes/adParametersRoutes");
 const adMenuRoutes = require("./routes/adMenuRoutes");
 const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 const adCoutryRoutes = require("./routes/adCountryRoutes");
+const adTaxIDTypeRoutes = require("./routes/adTaxIDTypeRoutes");
 const adRegionRoutes = require("./routes/adRegionRoutes");
 const adCityRoutes = require("./routes/adCityRoutes");
 
