@@ -11,6 +11,7 @@ const adCoutryRoutes = require("./routes/adCountryRoutes");
 const adTaxIDTypeRoutes = require("./routes/adTaxIDTypeRoutes");
 const adRegionRoutes = require("./routes/adRegionRoutes");
 const adClientGroupRoutes = require("./routes/adClientGroupRoutes")
+const adCityRoutes = require("./routes/adCityRoutes");
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -49,6 +50,8 @@ app.use(adRegionRoutes);
 app.use(adCoutryRoutes);
 app.use(adTaxIDTypeRoutes);
 app.use(adClientGroupRoutes);
+app.use(adCityRoutes);
+
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry, can't find that!");
