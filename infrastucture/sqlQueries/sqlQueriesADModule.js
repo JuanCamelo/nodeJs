@@ -7,19 +7,25 @@ const sqlQueries = {
 
     UPDATE_ADMODULE:
         "UPDATE " +
-        "stam.adregion " +
-        "SET adcountryid=$1, name=$2, updated=$3,updatedby=$4 " +
-        "WHERE adregionid=$5",
+        "stam.admodule " +
+        "SET name=$1, updated=$2,updatedby=$3 " +
+        "WHERE admoduleid=$4",
 
     DELETE_ADMODULE:
         "DELETE " +
-        "FROM stam.adregion " +
-       "where adregionid=$1",
+        "FROM stam.admodule " +
+        "WHERE admoduleid=$1",
    
-    GET_ADMODULEBY_ID:
+    GET_ADMODULENAMEBY_ID:
         "SELECT p.* " +
         "FROM stam.admodule p " +
         "WHERE UPPER(p.name)=$1",
+
+    
+    GET_ADMODULEBY_ID:
+        "SELECT p.* " +
+        "FROM stam.admodule p " +
+        "WHERE admoduleid=$1",
 
 
 }

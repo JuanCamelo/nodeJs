@@ -1,3 +1,5 @@
 module.exports ={
-    getADModuleByID : require("./adModuleByID"),
+    getADModuleNameByID : require("./getADModuleNameByID"),
+    getADModuleByID : require("./getADModuleByID"),
+    getAdModule : require("./getADModule")
 };
