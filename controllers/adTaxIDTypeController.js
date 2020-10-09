@@ -86,6 +86,8 @@ exports.createADTaxIDType = async (req,res,next) => {
         );
 
         if( name != adTaxIDType[0].name || code!=adTaxIDType[0].code){
+            const changecode = code!= adTaxIDType[0].code ? true:false;
+
             await dbTransaction.beginTransaction();
         //Validate not exists a record with same name and adCountryID
             const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adTaxIDType[0].adcountryid,name,adTaxIDType[0].adtaxidtypeid);
@@ -97,7 +99,12 @@ exports.createADTaxIDType = async (req,res,next) => {
         if(validIDCode.length >= 1 )
         throw new Error("Exists a record with the same code and adCountryID");
 
-            await changeLog.createADChangeLog(adUserID,"UPDATE","adTaxIDType",adTaxIDTypeid,"name",adTaxIDType[0].name,name);
+            if(name!= adTaxIDType[0].name)
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adTaxIDType",adTaxIDTypeid,"name",adTaxIDType[0].name,name);
+            
+            if(code!= adTaxIDType[0].code)
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adTaxIDType",adTaxIDTypeid,"code",adTaxIDType[0].code,code);
+
             await adTaxIDTypeCommands.updateADTaxIDType(record,adTaxIDTypeid);
             await dbTransaction.commitTransaction();
         }
