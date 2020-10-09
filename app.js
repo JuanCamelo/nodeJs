@@ -10,6 +10,7 @@ const adMenuOptionRoutes = require("./routes/adMenuOptionRoutes");
 const adCoutryRoutes = require("./routes/adCountryRoutes");
 const adTaxIDTypeRoutes = require("./routes/adTaxIDTypeRoutes");
 const adRegionRoutes = require("./routes/adRegionRoutes");
+const adClientGroupRoutes = require("./routes/adClientGroupRoutes")
 const adCityRoutes = require("./routes/adCityRoutes");
 const adModuleRoutes = require("./routes/adModuleRoutes");
 
@@ -49,6 +50,7 @@ app.use(adMenuOptionRoutes);
 app.use(adRegionRoutes);
 app.use(adCoutryRoutes);
 app.use(adTaxIDTypeRoutes);
+app.use(adClientGroupRoutes);
 app.use(adCityRoutes);
 app.use(adModuleRoutes);
 
