@@ -37,12 +37,12 @@ exports.createADTaxIDType = async (req,res,next) => {
             throw new Error ("adcountryid record not exist")
         
         //Validate not exists a record with same name and adCountryid
-        const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adCountryID,name);
+        const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDCountryName(adCountryID,name,);
         if(validIDName.length >= 1 )
             throw new Error("Exists a record with the same name and adCountryID");
 
         //Validate no exist a record with same code and adCountryid
-        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCode(adCountryID,code);
+        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCountryCode(adCountryID,code);
         if(validIDCode.length >= 1 )
             throw new Error("Exists a record with the same code and adCountryID");    
         
