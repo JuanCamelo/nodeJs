@@ -48,7 +48,7 @@ exports.createADTaxIDType = async (req,res,next) => {
         
         await dbTransaction.beginTransaction();
         const adTaxIDType = await adTaxIDTypeCommands.createADTaxIDType(record);
-        const adTaxIDOption = adTaxIDType[0].adtaxidtype;
+        const adTaxIDOption = adTaxIDType[0].adtaxidtypeid;
         await changeLog.createADChangeLog(adTaxIDOption,"INSERT","adTaxIDType",adTaxIDOption,null,null,null);
         await dbTransaction.commitTransaction();
 
@@ -88,12 +88,12 @@ exports.createADTaxIDType = async (req,res,next) => {
         if( name != adTaxIDType[0].name || code!=adTaxIDType[0].code){
             await dbTransaction.beginTransaction();
         //Validate not exists a record with same name and adCountryID
-            const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adTaxIDType[0].adcountryid,name,adTaxIDType[0].adtaxidtype);
+            const validIDName = await adTaxIDTypeQueries.getADTaxIDTypeByIDName(adTaxIDType[0].adcountryid,name,adTaxIDType[0].adtaxidtypeid);
             if(validIDName.length >= 1 )
             throw new Error("Exists a record with the same name and adCountryID");
          
         //Validate not exists a record with same code and adCountryid
-        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCode(adTaxIDType[0].adcountryid,code,adTaxIDType[0].adtaxidtype);
+        const validIDCode = await adTaxIDTypeQueries.getADTaxIDTypeByIDCode(adTaxIDType[0].adcountryid,code,adTaxIDType[0].adtaxidtypeid);
         if(validIDCode.length >= 1 )
         throw new Error("Exists a record with the same code and adCountryID");
 
@@ -150,7 +150,7 @@ exports.createADTaxIDType = async (req,res,next) => {
  */
 exports.getADTaxIDType = async (req,res,next) => {
     try{
-        const adTaxIDTypeID = req.query.adtaxidtypeid != null ? req.query.adtaxidtypeid : "p.adtaxidtype";
+        const adTaxIDTypeID = req.query.adtaxidtypeid != null ? req.query.adtaxidtypeid : "p.adtaxidtypeid";
         const adCountryID = req.query.adcountryid != null ? req.query.adcountryid : "p.adcountryid";
         const name = req.query.name != null ? "'" + req.query.name.toUpperCase() + "'" : "p.name";
         const code = req.query.code != null ? "'" + req.query.code.toUpperCase() + "'" : "p.code";

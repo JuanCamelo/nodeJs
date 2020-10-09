@@ -6,7 +6,7 @@ const getADTaxIDType = async (adTaxIDTypeID,adCountryID,name,code) => {
             SELECT 
             p.*
             FROM stam.adTaxIDType p 
-            WHERE p.adtaxidtype=${adTaxIDTypeID} AND p.adcountryid=${adCountryID}
+            WHERE p.adtaxidtypeid=${adTaxIDTypeID} AND p.adcountryid=${adCountryID}
             AND p.name=${name} AND p.code =${code}`
 
         const result = await pool.DBConnection.query(sqlQuery);
