@@ -134,8 +134,8 @@ exports.getADModule = async (req,res,next) => {
         const admoduleid = req.query.admoduleid != null ? req.query.admoduleid : "p.admoduleid";
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
        
-        const adParameters = await adModuleQueries.getAdModule(admoduleid,name);
-        response.success(req, res, adParameters, 200, adParameters.length);
+        const adModule = await adModuleQueries.getAdModule(admoduleid,name);
+        response.success(req, res, adModule, 200, adModule.length);
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
