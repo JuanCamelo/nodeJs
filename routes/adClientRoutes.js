@@ -9,9 +9,9 @@ router.post("/adclient", adClientController.createADClient);
 router.put("/adclient", adClientController.updateADClient);
 
 //DELETE /adClient - update adClient record
-//router.delete("/adclient", adClientController.deleteADClient);
+router.delete("/adclient", adClientController.deleteADClient);
 
 //GET /adClient - GET adClient records
-//router.get("/adclient", adClientController.getADClient);
+router.get("/adclient", adClientController.getADClient);
 
 module.exports = router;

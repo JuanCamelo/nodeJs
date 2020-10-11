@@ -1,13 +1,17 @@
 const pool = require('../../postgresDB');
 
-const getADClientGroup = async (adclientgroupid,name,isactive) => {
+const getADClient = async (adclientid,adclientgroupid,adcountryid,adtaxidtypeid,name,taxid,isactive) => {
     try{
         const sqlQuery = `
             SELECT 
             p.*
-            FROM stam.adClientGroup p
-            WHERE p.adclientgroupid=${adclientgroupid}
-            AND p.name=${name} 
+            FROM stam.adClient p
+            WHERE p.adclientid=${adclientid} 
+            AND p.adclientgroupid=${adclientgroupid}
+            AND p.adcountryid=${adcountryid}
+            AND p.adtaxidtypeid=${adtaxidtypeid}
+            AND p.name=${name}
+            AND p.taxid=${taxid} 
             AND p.isactive=${isactive}`
 
         const result = await pool.DBConnection.query(sqlQuery);
@@ -17,4 +21,4 @@ const getADClientGroup = async (adclientgroupid,name,isactive) => {
         throw error;
     }
 };
-module.exports = getADClientGroup;
+module.exports = getADClient;

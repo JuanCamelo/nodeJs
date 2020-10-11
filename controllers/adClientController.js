@@ -149,13 +149,13 @@ exports.createADClient = async (req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
- exports.deleteADClientGroup = async(req,res,next) => {
+ exports.deleteADClient = async(req,res,next) => {
     try{
-        const adClientGroupID = req.query.adclientgroupid;
-        const adClientGroup = await adClientGroupQueries.getADClientGroupByID(adClientGroupID);
+        const adClientID = req.query.adclientgroupid;
+        const adClient = await adClientQueries.getADClientByID(adClientID);
 
         //Validate that record exists
-        if( adClientGroup.length == 0 )
+        if( adClient.length == 0 )
             throw new Error("adClient record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
@@ -163,11 +163,11 @@ exports.createADClient = async (req,res,next) => {
             throw new Error("deletedBy is not valid");
         
         await dbTransaction.beginTransaction();
-        await adClientGroupCommands.deleteADClientGroup(adClientGroupID);
-        await changeLog.createADChangeLog(adUserID,"DELETE","adClient",adClientGroupID,null,null,null);
+        await adClientCommands.deleteADClient(adClientID);
+        await changeLog.createADChangeLog(adUserID,"DELETE","adClient",adClientID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adClientGroupID, 201, "adClient record deleted successfully!");
+        response.success(req, res, adClientID, 201, "adClient record deleted successfully!");
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
@@ -181,14 +181,18 @@ exports.createADClient = async (req,res,next) => {
  * @param {*} res 
  * @param {*} next 
  */
-exports.getADClientGroup = async (req,res,next) => {
+exports.getADClient = async (req,res,next) => {
     try{
+        const adclientid = req.query.adclientid != null ? req.query.adclientid : "p.adclientid";
         const adclientgroupid = req.query.adclientgroupid != null ? req.query.adclientgroupid : "p.adclientgroupid";
+        const adcountryid = req.query.adcountryid != null ? req.query.adcountryid : "p.adcountryid";
+        const adtaxidtypeid = req.query.adtaxidtypeid != null ? req.query.adtaxidtypeid : "p.adtaxidtypeid";
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
+        const taxid = req.query.taxid != null ? "'" + req.query.taxid + "'" : "p.taxid";
         const isactive = req.query.isactive != null ? req.query.isactive : "p.isactive";
 
-        const adClientGroup = await adClientGroupQueries.getADClientGroup(adclientgroupid,name,isactive);
-        response.success(req, res, adClientGroup, 200, adClientGroup.length);
+        const adClient = await adClientQueries.getADClient(adclientid,adclientgroupid,adcountryid,adtaxidtypeid,name,taxid,isactive);
+        response.success(req, res, adClient, 200, adClient.length);
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
