@@ -72,47 +72,76 @@ exports.createADClient = async (req,res,next) => {
  * Update adClient
  */
 
- /* exports.updateADClientGroup  =  async (req,res,next) => {
+  exports.updateADClient  =  async (req,res,next) => {
     try{
-        const adCLientGroupID = req.query.adclientgroupid;
-        const adClientGroup = await adClientGroupQueries.getADClientGroupByID(adCLientGroupID);
+        const adCLientID = req.query.adclientid;
+        const adClient = await adClientQueries.getADClientByID(adCLientID);
 
         //Validate that record exists
-        if( adClientGroup.length == 0 )
-            throw new Error("adClient record not exists");
+        if( adClient.length == 0 )
+            throw new Error("adClient record not exists"); 
+        
+        
         
         //Get values to update
-        const name = req.body.name !== undefined ? req.body.name : adClientGroup[0].name;
-        const isactive = req.body.isactive !== undefined ? req.body.isactive : adClientGroup[0].isactive;
+      
+        const adcountryID = req.body.adcountryid != undefined ? req.body.adcountryid : adClient[0].adcountryid;
+        const adTaxIDTypeID = req.body.adtaxidtypeid != undefined ? req.body.adtaxidtypeid : adClient[0].adtaxidtypeid;
+        const name = req.body.name !== undefined ? req.body.name : adClient[0].name;
+        const taxID = req.body.taxid !== undefined ? req.body.taxid : adClient[0].taxid;
+        const isactive = req.body.isactive !== undefined ? req.body.isactive : adClient[0].isactive;
         const adUserID = req.body.updatedby;
 
-        const record = adClientGroupUpdateDTO(
+        //validate exists a record with the adcountryid received
+        const validAdCountryID = await adCountryQueries.getADContryByID(adcountryID)
+        if(validAdCountryID.length === 0)
+            throw new Error ("adcountryID record not exist") 
+        
+        //validate exists a record with the taxidtype received
+        const validAdTaxIDTypeID = await adTaxIDTypeQueries.getADTaxIDTypeByID(adTaxIDTypeID)
+        if(validAdTaxIDTypeID.length === 0)
+            throw new Error ("adtaxidtypeID record not exist") 
+
+        const record = adClientUpdateDTO(
+            adcountryID,
+            adTaxIDTypeID,
             name,
+            taxID,
             isactive,
             adUserID,
         );
 
-        if( name !== adClientGroup[0].name || isactive !== adClientGroup[0].isactive){
+        if(  adcountryID !== adClient[0].adcountryid || adTaxIDTypeID !== adClient[0].adtaxidtypeid ||  name !== adClient[0].name || taxID !== adClient[0].taxid || isactive !== adClient[0].isactive){
+
             await dbTransaction.beginTransaction();
 
-            if(name !== adClientGroup[0].name)
-            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientGroupID,"name",adClientGroup[0].name,name);
+            if(adcountryID !== adClient[0].adcountryid)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientID,"adCountryID",adClient[0].adcountryid,adcountryID);
+
+            if(adTaxIDTypeID !== adClient[0].adtaxidtypeid)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientID,"adTaxIDTypeID",adClient[0].adtaxidtypeid,adTaxIDTypeID);
+
+            if(name !== adClient[0].name)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientID,"name",adClient[0].name,name);
+
+            if(taxID != adClient[0].taxid)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientID,"taxID",adClient[0].taxid,taxID);
         
-            if(isactive !== adClientGroup[0].isactive)
-            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientGroupID,"isactive",adClientGroup[0].isactive,isactive);
+            if(isactive !== adClient[0].isactive)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClient",adCLientID,"isactive",adClient[0].isactive,isactive);
 
 
-            await adClientGroupCommands.updateADClientGroup(record,adCLientGroupID);
+            await adClientCommands.updateADClient(record,adCLientID);
             await dbTransaction.commitTransaction();
         }
   
-        response.success(req, res, adCLientGroupID, 201, "adClient record updated successfully!");
+        response.success(req, res, adCLientID, 201, "adClient record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
         response.error(req, res, "adClient not updated!", 400, error.message); 
     }
-}; */
+}; 
 
 /**
  * Delete adClient

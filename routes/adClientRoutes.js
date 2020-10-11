@@ -6,7 +6,7 @@ const router = express.Router();
 router.post("/adclient", adClientController.createADClient);
 
 //PUT /adClient - update adClient record
-//router.put("/adclient", adClientController.updateADClient);
+router.put("/adclient", adClientController.updateADClient);
 
 //DELETE /adClient - update adClient record
 //router.delete("/adclient", adClientController.deleteADClient);

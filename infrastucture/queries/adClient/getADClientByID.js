@@ -1,12 +1,12 @@
 const pool = require('../../postgresDB');
-const sqlQueries = require('../../sqlQueries/sqlQueriesADClientGroup');
+const sqlQueries = require('../../sqlQueries/sqlQueriesADClient');
 
-const getADClientGroupByID = async (adMenuID) => {
+const getADClientByID = async (adClientID) => {
   try {
-    const result = await pool.DBConnection.query(sqlQueries.GET_ADCLIENTGROUP_ID, [adMenuID]);
+    const result = await pool.DBConnection.query(sqlQueries.GET_ADCLIENT_ID, [adClientID]);
     return result.rows;
   } catch (error) {
     throw error;
   }
 };
-module.exports = getADClientGroupByID;
+module.exports = getADClientByID;

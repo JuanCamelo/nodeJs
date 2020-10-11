@@ -8,8 +8,8 @@ const sqlQueries = {
     UPDATE_ADCLIENT:
         "UPDATE " +
         "stam.adClient " +
-        "SET name=$1, isactive=$2, updated=$3,updatedby=$4 " +
-        "WHERE adClientID=$5",
+        "SET adcountryid=$1, adtaxidtypeid=$2, name=$3, taxid=$4, isactive=$5, updated=$6,updatedby=$7 " +
+        "WHERE adClientID=$8",
     
     DELETE_ADCLIENT:
         "DELETE " +
