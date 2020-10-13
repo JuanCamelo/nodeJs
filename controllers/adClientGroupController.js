@@ -73,12 +73,13 @@ exports.createADClientGroup = async (req,res,next) => {
         if( name !== adClientGroup[0].name || isactive !== adClientGroup[0].isactive){
             await dbTransaction.beginTransaction();
 
-            /*  //Validate not exists a record with same name
-                const valName = await adClientGroupQueries.getADClientGroupByName(name);
-                if(valName.length > 0 )
-                throw new Error("Exists a record with the same name"); */ //preguntar si aplica esta validación para esta tabla
-
+            if(name !== adClientGroup[0].name)
             await changeLog.createADChangeLog(adUserID,"UPDATE","adClientGroup",adCLientGroupID,"name",adClientGroup[0].name,name);
+        
+            if(isactive !== adClientGroup[0].isactive)
+            await changeLog.createADChangeLog(adUserID,"UPDATE","adClientGroup",adCLientGroupID,"isactive",adClientGroup[0].isactive,isactive);
+
+
             await adClientGroupCommands.updateADClientGroup(record,adCLientGroupID);
             await dbTransaction.commitTransaction();
         }
