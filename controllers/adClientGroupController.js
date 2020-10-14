@@ -120,7 +120,7 @@ exports.createADClientGroup = async (req,res,next) => {
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adMenu not deleted!", 400, error.message);
+        response.error(req, res, "adClientGroup not deleted!", 400, error.message);
     }
 } 
 
