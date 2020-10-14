@@ -13,6 +13,7 @@ const adRegionRoutes = require("./routes/adRegionRoutes");
 const adClientGroupRoutes = require("./routes/adClientGroupRoutes")
 const adCityRoutes = require("./routes/adCityRoutes");
 const adModuleRoutes = require("./routes/adModuleRoutes");
+const adClientModuleRoutes = require("./routes/adClientModuleRoutes");
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -53,6 +54,8 @@ app.use(adTaxIDTypeRoutes);
 app.use(adClientGroupRoutes);
 app.use(adCityRoutes);
 app.use(adModuleRoutes);
+app.use(adClientModuleRoutes);
+
 
 
 
