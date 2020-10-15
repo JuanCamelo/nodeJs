@@ -1,11 +1,15 @@
 const AdRoleDTO = (
-    admenuid,
+    adclientid,
     name,
+    isactive,
     createdby,
  ) => {
 
     if ( name == undefined || name === '' || name == null )
         throw new Error('name is not valid');
+
+    if ( isactive == undefined || isactive === '' || isactive == null || typeof isactive != "boolean" )
+        throw new Error('isactive is not valid');    
     
     const user = parseInt(createdby);
     if ( user === undefined || user === null || user <= 0 || Number.isNaN(user) ) 
@@ -13,8 +17,9 @@ const AdRoleDTO = (
 
     return {
         
-        admenuid:admenuid,
+        adclientid:adclientid,
         name: name.toLowerCase(),
+        isactive: isactive,
         created: new Date(),
         createdby: createdby,
         updated: null,

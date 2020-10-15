@@ -1,9 +1,9 @@
 const pool = require('../../postgresDB');
-const sqlQueries = require('../../sqlQueries/sqlQueriesADmenuOption');
+const sqlQueries = require('../../sqlQueries/sqlQueriesADRole');
 
-const getADRoleByID = async (adMenuOptionID) => {
+const getADRoleByID = async (adRoleID) => {
   try {
-    const result = await pool.DBConnection.query(sqlQueries.GET_ADMENUOPTION_ID, [adMenuOptionID]);
+    const result = await pool.DBConnection.query(sqlQueries.GET_ADROLE_ID, [adRoleID]);
     return result.rows;
   } catch (error) {
     throw error;

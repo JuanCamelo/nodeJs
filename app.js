@@ -14,6 +14,8 @@ const adClientGroupRoutes = require("./routes/adClientGroupRoutes")
 const adCityRoutes = require("./routes/adCityRoutes");
 const adClientRoutes = require("./routes/adClientRoutes");
 const adModuleRoutes = require("./routes/adModuleRoutes");
+const adRoleRoutes = require("./routes/adRoleRoutes");
+
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -55,6 +57,8 @@ app.use(adClientGroupRoutes);
 app.use(adCityRoutes);
 app.use(adClientRoutes);
 app.use(adModuleRoutes);
+app.use(adRoleRoutes);
+
 
 
 
