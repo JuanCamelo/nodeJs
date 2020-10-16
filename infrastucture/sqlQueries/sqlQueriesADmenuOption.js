@@ -24,6 +24,6 @@ const sqlQueries = {
      GET_ADMENUOPTION_ID_NAME:
         "SELECT p.* " +
         "FROM stam.adMenuOption p " +
-        "WHERE p.admenuid=$1 and p.name=$2" , 
+        "WHERE p.admenuid=$1 and p.name=$2", 
 }
 module.exports = sqlQueries;
