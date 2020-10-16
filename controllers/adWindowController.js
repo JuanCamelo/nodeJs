@@ -145,7 +145,7 @@ exports.getADWindow = async (req,res,next) => {
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
         const isactive = req.query.isactive != null ? req.query.isactive : "p.isactive";
        
-        const adWindow = await adWindowQueries.getADWuindow(adwindowid,name,isactive);
+        const adWindow = await adWindowQueries.getADWindow(adwindowid,name,isactive);
         response.success(req, res, adWindow, 200, adWindow.length);
 
     } catch (error){
