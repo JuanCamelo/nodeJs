@@ -55,7 +55,7 @@ exports.createADRole = async (req,res,next) => {
 }
 
 /**
- * Update adMenuOption
+ * Update adRole
  */
 
  exports.updateADRole  =  async (req,res,next) => {
