@@ -45,7 +45,7 @@ exports.createADWindow = async (req,res,next) => {
 
     } catch(error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adWuindow not created!", 400, error.message);
+        response.error(req, res, "adWindow not created!", 400, error.message);
     }
 }
 
@@ -59,7 +59,7 @@ exports.updateADWindow  =  async (req,res,next) => {
 
         //Validate that record exists
         if( adWuindow.length == 0 )
-            throw new Error("adWuindow record not exists");
+            throw new Error("adWindow record not exists");
         
         //Get values to update
         const name = req.body.name !== undefined ? req.body.name : adWuindow[0].name;
@@ -81,12 +81,12 @@ exports.updateADWindow  =  async (req,res,next) => {
                 if(valName.length > 0 )
                     throw new Error("Exists a record with same name");
 
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adWuindow",adWindowID,"name",adWuindow[0].name,name);
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adWindow",adWindowID,"name",adWuindow[0].name,name);
             };
 
             // Validate isactive
             if( isactive != adWuindow[0].isactive ){
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adWuindow",adWindowID,"isactive",adWuindow[0].isactive,isactive);
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adWindow",adWindowID,"isactive",adWuindow[0].isactive,isactive);
             };
             
             await adWindowCommands.updateADWindow(record,adWindowID);
@@ -114,7 +114,7 @@ exports.deleteADWindow = async(req,res,next) => {
 
         //Validate that record exists
         if( adWindow.length == 0 )
-            throw new Error("adWuindowid record not exists");
+            throw new Error("adWindowid record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )
@@ -134,7 +134,7 @@ exports.deleteADWindow = async(req,res,next) => {
 }
 
 /**
- * Get ADModule
+ * Get ADWindow
  * @param {} req 
  * @param {*} res 
  * @param {*} next 
@@ -145,7 +145,7 @@ exports.getADWindow = async (req,res,next) => {
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
         const isactive = req.query.isactive != null ? req.query.isactive : "p.isactive";
        
-        const adWindow = await adWindowQueries.getADWuindow(adwindowid,name,isactive);
+        const adWindow = await adWindowQueries.getADWindow(adwindowid,name,isactive);
         response.success(req, res, adWindow, 200, adWindow.length);
 
     } catch (error){
