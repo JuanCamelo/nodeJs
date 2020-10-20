@@ -39,14 +39,14 @@ exports.createADProcess = async (req,res,next) => {
         await dbTransaction.beginTransaction();
         const adProcess = await adProcessCommands.createADProcess(record);
         const adProcessID = adProcess[0].adprocesid;
-        await changeLog.createADChangeLog(adUserID,"INSERT","adProcess",adProcessID,null,null,null);
+        await changeLog.createADChangeLog(adUserID,"INSERT","adprocess",adProcessID,null,null,null);
         await dbTransaction.commitTransaction();
 
-        response.success(req, res, adProcessID, 201, "adProcess record created successfully!");
+        response.success(req, res, adProcessID, 201, "adprocess record created successfully!");
 
     } catch(error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adProcess not created!", 400, error.message);
+        response.error(req, res, "adprocess not created!", 400, error.message);
     }
 }
 
@@ -60,7 +60,7 @@ exports.updateADProcess  =  async (req,res,next) => {
 
         //Validate that record exists
         if( adProcess.length == 0 )
-            throw new Error("adProcess record not exists");
+            throw new Error("adprocess record not exists");
         
         //Get values to update
         const name = req.body.name !== undefined ? req.body.name : adProcess[0].name;
@@ -89,23 +89,23 @@ exports.updateADProcess  =  async (req,res,next) => {
 
             // Validate description
             if( description != adProcess[0].description ){
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adProcess",adProcessID,"description",adProcess[0].description,description);
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adprocess",adProcessID,"description",adProcess[0].description,description);
             };
 
              // Validate isactive
             if( isactive != adProcess[0].isactive ){
-                await changeLog.createADChangeLog(adUserID,"UPDATE","adProcess",adProcessID,"isactive",adProcess[0].isactive,isactive);
+                await changeLog.createADChangeLog(adUserID,"UPDATE","adprocess",adProcessID,"isactive",adProcess[0].isactive,isactive);
             };
             
             await adProcessCommands.updateADProcess(record,adProcessID);
             await dbTransaction.commitTransaction();
         };
 
-        response.success(req, res, adProcessID, 201, "adProcess record updated successfully!");
+        response.success(req, res, adProcessID, 201, "adprocess record updated successfully!");
 
     } catch(error) {
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adProcess not updated!", 400, error.message); 
+        response.error(req, res, "adprocess not updated!", 400, error.message); 
     };
 };
 
@@ -126,7 +126,7 @@ exports.deleteADProcess = async(req,res,next) => {
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )
-            throw new Error("deletedBy is not valid");
+            throw new Error("deletedby is not valid");
         
         await dbTransaction.beginTransaction();
         await adProcessCommands.deleteADProcess(adProcessID);
@@ -159,6 +159,6 @@ exports.getADProcess = async (req,res,next) => {
 
     } catch (error){
         await dbTransaction.rollbackTransaction();
-        response.error(req, res, "adProcess not exists!", 400, error.message);
+        response.error(req, res, "adprocess not exists!", 400, error.message);
     };
 };
