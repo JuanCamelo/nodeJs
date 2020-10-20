@@ -62,7 +62,7 @@ exports.createADUser = async (req,res,next) => {
         if(!validateEmail.test(email))
             throw new Error ("Estructure email invalid")    
          
-            
+           
         // validate language 
         if(language != undefined){
             const validLanguage = await adParameterQueries.getADParameterByTypeValue("LANGUAGES",language.toUpperCase())
