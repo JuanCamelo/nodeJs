@@ -15,9 +15,10 @@ const adCityRoutes = require("./routes/adCityRoutes");
 const adClientRoutes = require("./routes/adClientRoutes");
 const adModuleRoutes = require("./routes/adModuleRoutes");
 const adRoleRoutes = require("./routes/adRoleRoutes");
-
 const adClientModuleRoutes = require("./routes/adClientModuleRoutes");
 const adWindow = require("./routes/adWindowRoutes");
+const adLocation = require("./routes/adLocationRoutes") 
+const adWindowRole = require("./routes/adWindowRoleRoutes")
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -60,11 +61,10 @@ app.use(adCityRoutes);
 app.use(adClientRoutes);
 app.use(adModuleRoutes);
 app.use(adRoleRoutes);
-
 app.use(adClientModuleRoutes);
 app.use(adWindow);
-
-
+app.use(adLocation);
+app.use(adWindowRole);
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry, can't find that!");

@@ -151,7 +151,7 @@ exports.createADClient = async (req,res,next) => {
  */
  exports.deleteADClient = async(req,res,next) => {
     try{
-        const adClientID = req.query.adclientgroupid;
+        const adClientID = req.query.adclientid;
         const adClient = await adClientQueries.getADClientByID(adClientID);
 
         //Validate that record exists
