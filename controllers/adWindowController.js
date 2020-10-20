@@ -109,7 +109,7 @@ exports.updateADWindow  =  async (req,res,next) => {
  */
 exports.deleteADWindow = async(req,res,next) => {
     try{
-        const adWindowID = req.query.adWuindowid;
+        const adWindowID = req.query.adwindowid;
         const adWindow  = await adWindowQueries.getADwindowByID(adWindowID);
 
         //Validate that record exists
