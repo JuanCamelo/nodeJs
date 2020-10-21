@@ -16,14 +16,10 @@ const adClientRoutes = require("./routes/adClientRoutes");
 const adModuleRoutes = require("./routes/adModuleRoutes");
 const adRoleRoutes = require("./routes/adRoleRoutes");
 const adClientModuleRoutes = require("./routes/adClientModuleRoutes");
-const adWindow = require("./routes/adWindowRoutes");
 const adLocation = require("./routes/adLocationRoutes") 
 const adWindowRole = require("./routes/adWindowRoleRoutes")
 const adUser = require("./routes/adUserRoutes")
-
 const adWindowRoutes = require("./routes/adWindowRoutes");
-const adLocation = require("./routes/adLocationRoutes");
-const adWindowRole = require("./routes/adWindowRoleRoutes");
 const adProcessRoutes = require("./routes/adProcessRoutes");
 
 
