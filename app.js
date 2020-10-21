@@ -20,7 +20,7 @@ const adWindowRoutes = require("./routes/adWindowRoutes");
 const adLocation = require("./routes/adLocationRoutes");
 const adWindowRole = require("./routes/adWindowRoleRoutes");
 const adProcessRoutes = require("./routes/adProcessRoutes");
-
+const adProcessRoleRoutes = require("./routes/adProcessRoleRoutes")
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -67,6 +67,8 @@ app.use(adWindowRoutes);
 app.use(adLocation);
 app.use(adWindowRole);
 app.use(adProcessRoutes);
+app.use(adProcessRoleRoutes);
+
 
 app.use(function (req, res, next) {
   res.status(404).send("Sorry, can't find that!");
