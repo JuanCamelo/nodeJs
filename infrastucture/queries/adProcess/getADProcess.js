@@ -1,11 +1,11 @@
 const pool = require('../../postgresDB');
 
-const getADProcess = async (adprocesid,name, description,isactive ) => {
+const getADProcess = async (adprocessid,name, description,isactive ) => {
     try{
         const sqlQuery = `
             SELECT p. *
             FROM stam.adprocess p
-            WHERE p.adprocesid=${adprocesid}    
+            WHERE p.adprocessid=${adprocessid}    
             AND p.description=${description}        
             AND p.name=${name}
             AND p.isactive=${isactive}           

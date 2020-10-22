@@ -38,7 +38,7 @@ exports.createADProcess = async (req,res,next) => {
         
         await dbTransaction.beginTransaction();
         const adProcess = await adProcessCommands.createADProcess(record);
-        const adProcessID = adProcess[0].adprocesid;
+        const adProcessID = adProcess[0].adprocessid;
         await changeLog.createADChangeLog(adUserID,"INSERT","adprocess",adProcessID,null,null,null);
         await dbTransaction.commitTransaction();
 
@@ -55,7 +55,7 @@ exports.createADProcess = async (req,res,next) => {
  */
 exports.updateADProcess  =  async (req,res,next) => {
     try{
-        const adProcessID = req.query.adprocesid;
+        const adProcessID = req.query.adprocessid;
         const adProcess = await adProcessQueries.getADprocessByID(adProcessID);
 
         //Validate that record exists
@@ -117,12 +117,12 @@ exports.updateADProcess  =  async (req,res,next) => {
  */
 exports.deleteADProcess = async(req,res,next) => {
     try{
-        const adProcessID = req.query.adprocesid;
+        const adProcessID = req.query.adprocessid;
         const adProcess  = await adProcessQueries.getADprocessByID(adProcessID);
 
         //Validate that record exists
         if( adProcess.length == 0 )
-            throw new Error("adprocesid record not exists");
+            throw new Error("adprocessid record not exists");
         
         const adUserID = parseInt(req.query.deletedby);
         if( Number.isNaN(adUserID) )
@@ -149,12 +149,12 @@ exports.deleteADProcess = async(req,res,next) => {
  */
 exports.getADProcess = async (req,res,next) => {
     try{
-        const adprocesid = req.query.adprocesid != null ? req.query.adprocesid : "p.adprocesid";
+        const adprocessid = req.query.adprocessid != null ? req.query.adprocessid : "p.adprocessid";
         const name = req.query.name != null ? "'" + req.query.name + "'" : "p.name";
         const description = req.query.description != null ? "'" + req.query.description + "'" : "p.description";
         const isactive = req.query.isactive != null ? req.query.isactive : "p.isactive";
        
-        const adProcess = await adProcessQueries.getADProcess(adprocesid,name, description,isactive);
+        const adProcess = await adProcessQueries.getADProcess(adprocessid,name, description,isactive);
         response.success(req, res, adProcess, 200, adProcess.length);
 
     } catch (error){
